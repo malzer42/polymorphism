@@ -1,0 +1,29 @@
+#ifndef EMPLOYEE_H
+#define EMPLOYEE_H
+
+
+#include <iostream>
+#include <string>
+
+class Employee{
+ private:
+  std::string name_;
+  double salary_;
+
+ public:
+  //Employee();
+  Employee(const std::string& name = "Unknown", double salary = 0);
+  Employee(const Employee& e);
+
+  std::string getName()const;
+  double getSalary()const;
+
+  void setName(std::string& name);
+  void setSalary(double salary);
+
+  friend std::ostream& operator<<(std::ostream& out, const Employee& e);
+
+};
+
+
+#endif /* EMPLOYEE_H */

@@ -1,0 +1,42 @@
+/**
+ * File: Manager.cpp
+ * Author(s): Pierre Abraham Mulamba
+ * Created(modified) on: 20201005
+ */
+
+#include "Manager.h"
+
+Manager::Manager(const std::string& name, double salary, double bonus):
+  Employee(name, salary), bonus_(bonus)
+{
+  managedEmployees_.clear();
+}
+
+Manager::Manager(const Manager& m) : Employee(m.getName(), m.getSalary()),
+                                     bonus_(m.bonus_),
+                                     managedEmployees_(m.managedEmployees_)
+{
+
+}
+
+void Manager::addEmployee(std::shared_ptr<Employee>& e_ptr)
+{
+  managedEmployees_.push_back(e_ptr);
+}
+
+std::shared_ptr<Employee>  Manager::getEmployee(const std::string& name)const
+{
+  std::shared_ptr<Employee> e = nullptr;
+  for(auto& elt : managedEmployees_){
+    if(elt->getName() == name ){
+      e = std::make_shared<Employee>(elt->getName(), elt->getSalary());
+    }
+  }
+  return e;
+}
+
+double Manager::getSalary()const
+{
+  double baseSalary = Employee::getSalary();
+  return (baseSalary + (1 + bonus_/100.0));
+}

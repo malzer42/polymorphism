@@ -1,0 +1,45 @@
+/**
+ * File: main.cpp
+ * Author(s): Pierre Abraham Mulamba
+ * Created (modified) on : 20201005
+ * Description: Supreme Commander
+ * Usage: cd build && cmake ..
+ */
+
+
+#include "Employee.h"
+#include "Manager.h"
+#include <vector>
+#include <memory>
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+  try{
+    std::cout << "Program To Test Inheritance\n";
+    std::shared_ptr<Employee> e = std::make_shared<Employee>("Pierre", 75000);
+    Manager m;
+    m.addEmployee(e);
+    std::cout << m.getEmployee("Pierre")->getSalary() << '\n';
+
+    std::shared_ptr<Employee> e2 = std::make_shared<Employee>("Abraham", 80000);
+    std::shared_ptr<Manager> m2 = std::make_shared<Manager>(m);
+
+    std::vector<std::shared_ptr<Employee>> employees;
+    employees.push_back(e);
+    employees.push_back(e2);
+    employees.push_back(m2);
+
+    for(auto& employee: employees){
+      std::cout << employee->getName() <<", " << employee->getSalary()<< '\n';
+    }
+
+
+
+    return 0;
+
+  }
+  catch(...){
+    std::cout << "Unknown Exception thrown\n";
+  }
+}
